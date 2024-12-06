@@ -68,9 +68,9 @@ def main():
                 for word in words:
                     if word.strip():
                         parts = word.split("\t")
-                        if len(parts) >= 6:  # แยกข้อมูลที่มีทั้งหมด 6 ชิ้น
+                        if len(parts) >= 6:  # ตรวจสอบให้มีการแยกคำอย่างน้อย 6 ชิ้น
                             word_data.append(parts[:6])  # เลือกเฉพาะ 6 คอลัมน์ที่ต้องการ
-                
+
                 # สร้าง DataFrame
                 if word_data:
                     df = pd.DataFrame(word_data, columns=["Word", "Pinyin", "Part of Speech", "Meaning", "Example Usage", "Synonyms"])
