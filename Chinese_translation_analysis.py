@@ -70,8 +70,8 @@ def main():
 
                 def process_vocab_data(vocab_analysis):
                     pattern = r"1\.\s*Word\s*:\s*(\S+)\s*2\.\s*Pinyin\s*:\s*(\S+)\s*3\.\s*Part of Speech\s*:\s*(\S+)\s*4\.\s*Meaning\s*:\s*([^1]+)\s*5\.\s*Example Usage\s*:\s*([^1]+)\s*6\.\s*Synonyms\s*:\s*(.*)"
-                    word_data = []
                     matches = re.findall(pattern, vocab_analysis, re.DOTALL)
+                    word_data = []
                     for match in matches:
                         word_data.append([match[0], match[1], match[2], match[3].strip(), match[4].strip(), match[5].strip()])
                     return word_data
