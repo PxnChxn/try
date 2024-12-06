@@ -78,7 +78,7 @@ def main():
                 word_data = process_vocab_data(vocab_analysis)
                 
                 # ตรวจสอบข้อมูลที่ได้
-                st.write("Word data after processing:", word_data)
+                st.write("Word data after processing:")
                 
                 # สร้าง DataFrame
                 if word_data:
