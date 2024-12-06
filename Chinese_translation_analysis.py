@@ -35,7 +35,7 @@ give feedback in this pattern :
         1. Word : (Word)
         2. Pinyin : (Pinyin)
         3. Part of Speech : (Part of Speech)
-        4. Meaning : (Meaning)
+        4. Meaning : (Meaning in {target_language})
         5. Example Usage : (Example Usage)
         6. Synonyms : (Synonyms)
     """
