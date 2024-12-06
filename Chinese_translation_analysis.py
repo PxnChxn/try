@@ -68,15 +68,11 @@ def main():
                 st.text(vocab_analysis)
 
                 def process_vocab_data(vocab_analysis):
-                    words = vocab_analysis.split("\n")  
+                    pattern = r"1\.\s*Word\s*:\s*(\S+)\s*2\.\s*Pinyin\s*:\s*(\S+)\s*3\.\s*Part of Speech\s*:\s*(\S+)\s*4\.\s*Meaning\s*:\s*([^1]+)\s*5\.\s*Example Usage\s*:\s*([^1]+)\s*6\.\s*Synonyms\s*:\s*(.*)"
                     word_data = []
-                
-                    for word in words:
-                        if word.strip():
-                            parts = word.split(" : ")
-                            if len(parts) >= 6:
-                                word_data.append([parts[1], parts[3], parts[5]])  
-                                
+                    matches = re.findall(pattern, vocab_analysis, re.DOTALL)
+                    for match in matches:
+                        word_data.append([match[0], match[1], match[2], match[3].strip(), match[4].strip(), match[5].strip()])
                     return word_data
                     
                 word_data = process_vocab_data(vocab_analysis)
@@ -84,7 +80,7 @@ def main():
                 st.write("Word data after processing:")
                 
                 if word_data:
-                    df = pd.DataFrame(word_data, columns=["Word", "Pinyin", "Part of Speech", "Meaning", "Example Usage", "Synonyms"])
+                    df = pd.DataFrame(word_data, columns=["Word", "Pinyin", "Part of Speech", "Meaning", "Example Usage", "Synonyms"], index=range(1, len(word_data) + 1))
                     st.dataframe(df)
                     
                     csv = df.to_csv(index=False).encode('utf-8')
