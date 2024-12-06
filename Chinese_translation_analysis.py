@@ -69,14 +69,19 @@ def main():
                 st.text(vocab_analysis)
 
                 def process_vocab_data(vocab_analysis):
-                    pattern = r"1\.\s*Word\s*:\s*(\S+)\s*2\.\s*Pinyin\s*:\s*(\S+)\s*3\.\s*Part of Speech\s*:\s*(\S+)\s*4\.\s*Meaning\s*:\s*([^1]+)\s*5\.\s*Example Usage\s*:\s*([^1]+)\s*6\.\s*Synonyms\s*:\s*(.*)"
+                    pattern = r"1\.\s*Word\s*:\s*(\S+)\s*2\.\s*Pinyin\s*:\s*(\S+)\s*3\.\s*Part of Speech\s*:\s*(\S+)\s*4\.\s*Meaning\s*:\s*([^\n]+)\s*5\.\s*Example Usage\s*:\s*([^\n]+)\s*6\.\s*Synonyms\s*:\s*([^\n]+)"
                     matches = re.findall(pattern, vocab_analysis, re.DOTALL)
-                    
                     word_data = []
                     for match in matches:
-                        # แยกข้อมูลในแต่ละชุดและเก็บข้อมูลตามที่ต้องการ
-                        word_data.append([match[0], match[1], match[2], match[3].strip(), match[4].strip(), match[5].strip()])
-                    
+                        word_info = {
+                            "Word": match[0],
+                            "Pinyin": match[1],
+                            "Part of Speech": match[2],
+                            "Meaning": match[3].strip(),
+                            "Example Usage": match[4].strip(),
+                            "Synonyms": match[5].strip()
+                        }
+                        word_data.append(word_info)
                     return word_data
                     
                 word_data = process_vocab_data(vocab_analysis)
