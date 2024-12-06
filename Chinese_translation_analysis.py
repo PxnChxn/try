@@ -67,8 +67,8 @@ def main():
                 st.subheader("Vocabulary Analysis with Pinyin")
                 st.text(vocab_analysis)
 
-                def process_vocab_data(vocab_analysis):
-                    words = vocab_analysis.split("\n")  
+                def process_vocab_data(extract_vocab_with_pinyin(chinese_text, target_language)):
+                    words = extract_vocab_with_pinyin(chinese_text, target_language).split("\n")  
                     word_data = []
                     
                     for word in words:
