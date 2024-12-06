@@ -95,8 +95,8 @@ def main():
                     )
                 else:
                     st.warning("No valid word data to display.")
-                        else:
-                            st.error("Please provide an API key and input text.")
+        else:
+            st.error("Please provide an API key and input text.")
 
 if __name__ == "__main__":
     main()
