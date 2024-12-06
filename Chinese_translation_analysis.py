@@ -27,6 +27,8 @@ Analyze the following Chinese sentence. Extract important words and provide:
 4. The meaning in {target_language}.
 5. An example sentence using the word in the same context as the input sentence in Chinese.
 6. Provide synonyms for each word.
+
+Sentence: {text}
     """
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",  # ใช้โมเดล gpt-3.5-turbo
