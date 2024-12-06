@@ -65,6 +65,9 @@ def main():
                 word_data = []
 
                 # แยกแต่ละคำจากผลลัพธ์การวิเคราะห์
+                words = vocab_analysis.split("\n")
+                word_data = []
+
                 for word in words:
                     if word.strip():
                         parts = word.split("\t")
