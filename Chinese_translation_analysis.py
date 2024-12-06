@@ -66,7 +66,20 @@ def main():
                 vocab_analysis = extract_vocab_with_pinyin(chinese_text, target_language)
                 st.subheader("Vocabulary Analysis with Pinyin")
                 st.text(vocab_analysis)
+
+                def process_vocab_data(vocab_analysis):
+                    words = vocab_analysis.split("\n")
+                    word_data = []
+                    
+                    # แยกข้อมูลจากคำตอบ
+                    for word in words:
+                        if word.strip():  
+                            parts = word.split(" ")  
+                            if len(parts) >= 6:  
+                                word_data.append(parts[:6])  
                 
+                    return word_data
+                    
                 word_data = process_vocab_data(vocab_analysis)
                 
                 # ตรวจสอบข้อมูลที่ได้
