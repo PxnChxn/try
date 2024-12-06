@@ -60,19 +60,26 @@ def main():
                 st.text(vocab_analysis)
                 
                 # การแยกคำจากประโยคและการแสดงในตาราง
-                # จะแยกคำจากข้อมูลที่ได้รับจาก OpenAI API
                 words = vocab_analysis.split("\n")
                 word_data = []
 
                 # แยกแต่ละคำจากผลลัพธ์การวิเคราะห์
-                words = vocab_analysis.split("\n")
-                word_data = []
-
                 for word in words:
                     if word.strip():
-                        parts = word.split("\t")
-                        if len(parts) >= 6:  # ตรวจสอบให้มีการแยกคำอย่างน้อย 6 ชิ้น
-                            word_data.append(parts[:6])  # เลือกเฉพาะ 6 คอลัมน์ที่ต้องการ
+                        # แสดงผลลัพธ์ที่แยกข้อมูลจากคำ
+                        parts = word.split("\n")  # เปลี่ยนจาก \t เป็น \n เพื่อแยกแต่ละบรรทัด
+                        word_details = []
+
+                        # วนลูปแยกข้อมูลแต่ละบรรทัด
+                        for part in parts:
+                            word_details.append(part.strip())
+
+                        # คัดเลือกข้อมูลที่ต้องการ
+                        if len(word_details) == 6:  # ควรมี 6 ข้อมูลในแต่ละแถว
+                            word_data.append(word_details)
+
+                # ตรวจสอบข้อมูลใน word_data
+                st.write("Word data: ", word_data)
 
                 # สร้าง DataFrame
                 if word_data:
@@ -87,6 +94,8 @@ def main():
                         file_name="chinese_analysis_with_pinyin.csv",
                         mime="text/csv",
                     )
+                else:
+                    st.warning("No data available to display.")
         else:
             st.error("Please provide an API key and input text.")
 
