@@ -68,17 +68,16 @@ def main():
                 st.text(vocab_analysis)
 
                 def process_vocab_data(vocab_analysis):
-                    words = vocab_analysis.split("\n")
+                    words = vocab_analysis.split("\n")  
                     word_data = []
-                
+                    
                     for word in words:
-                        if word.strip():  # ตรวจสอบว่าคำไม่ว่าง
-                            parts = word.split(" : ")  # แยกข้อมูลหลังเครื่องหมาย ":"
+                        if word.strip():
+                            parts = word.split(" : ")
                             
-                            # ถ้าคำมีข้อมูลครบ 6 คอลัมน์
                             if len(parts) >= 6:
-                                word_data.append([parts[0], parts[1], parts[2], parts[3], parts[4], parts[5]])  # เก็บข้อมูลในลำดับที่ต้องการ
-                
+                                word_data.append([parts[1], parts[3], parts[5]])  
+                                
                     return word_data
                     
                 word_data = process_vocab_data(vocab_analysis)
