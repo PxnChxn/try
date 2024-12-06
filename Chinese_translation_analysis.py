@@ -70,13 +70,14 @@ def main():
                 def process_vocab_data(vocab_analysis):
                     words = vocab_analysis.split("\n")
                     word_data = []
-                    
-                    # แยกข้อมูลจากคำตอบ
+                
                     for word in words:
-                        if word.strip():  
-                            parts = word.split(" ")  
-                            if len(parts) >= 6:  
-                                word_data.append(parts[:6])  
+                        if word.strip():  # ตรวจสอบว่าคำไม่ว่าง
+                            parts = word.split(" : ")  # แยกข้อมูลหลังเครื่องหมาย ":"
+                            
+                            # ถ้าคำมีข้อมูลครบ 6 คอลัมน์
+                            if len(parts) >= 6:
+                                word_data.append([parts[0], parts[1], parts[2], parts[3], parts[4], parts[5]])  # เก็บข้อมูลในลำดับที่ต้องการ
                 
                     return word_data
                     
