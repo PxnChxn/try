@@ -74,8 +74,8 @@ def main():
                     
                     word_data = []
                     for match in matches:
-                        parts = [item.strip() for item in match]
-                        word_data.append([parts[0], parts[1], parts[2], parts[3], parts[4], parts[5]])
+                        # แยกข้อมูลในแต่ละชุดและเก็บข้อมูลตามที่ต้องการ
+                        word_data.append([match[0], match[1], match[2], match[3].strip(), match[4].strip(), match[5].strip()])
                     
                     return word_data
                     
