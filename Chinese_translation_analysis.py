@@ -29,6 +29,14 @@ Analyze the following Chinese sentence. Extract important words and provide:
 6. Provide synonyms for each word.
 
 Sentence: {text}
+
+give feedback in this pattern :
+        1. Word : (Word)
+        2. Pinyin : (Pinyin)
+        3. Part of Speech : (Part of Speech)
+        4. Meaning : (Meaning)
+        5. Example Usage : (Example Usage)
+        6. Synonyms : (Synonyms)
     """
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",  # ใช้โมเดล gpt-3.5-turbo
@@ -59,22 +67,6 @@ def main():
                 st.subheader("Vocabulary Analysis with Pinyin")
                 st.text(vocab_analysis)
                 
-                # การแยกคำจากประโยคและการแสดงในตาราง
-                def process_vocab_data(vocab_analysis):
-                    # แยกคำศัพท์ตามบรรทัด
-                    words = vocab_analysis.split("\n")
-                    word_data = []
-                
-                    # แยกคำศัพท์ออกเป็นรายการ
-                    for word in words:
-                        if word.strip():  # ตรวจสอบว่าไม่ใช่บรรทัดว่าง
-                            parts = word.split(" ")  # หรือใช้ \t ขึ้นอยู่กับรูปแบบข้อมูลจาก API
-                            if len(parts) >= 6:  # ต้องมีข้อมูลครบ 6 คอลัมน์
-                                word_data.append(parts[:6])  # เก็บเฉพาะ 6 คอลัมน์ที่ต้องการ
-                
-                    return word_data
-                
-                # ใช้ฟังก์ชันเพื่อแยกข้อมูล
                 word_data = process_vocab_data(vocab_analysis)
                 
                 # ตรวจสอบข้อมูลที่ได้
