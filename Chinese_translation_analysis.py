@@ -60,32 +60,31 @@ def main():
                 st.text(vocab_analysis)
                 
                 # การแยกคำจากประโยคและการแสดงในตาราง
-                words = vocab_analysis.split("\n")
-                word_data = []
-
-                # แยกแต่ละคำจากผลลัพธ์การวิเคราะห์
-                for word in words:
-                    if word.strip():
-                        # แสดงผลลัพธ์ที่แยกข้อมูลจากคำ
-                        parts = word.split("\n")  # เปลี่ยนจาก \t เป็น \n เพื่อแยกแต่ละบรรทัด
-                        word_details = []
-
-                        # วนลูปแยกข้อมูลแต่ละบรรทัด
-                        for part in parts:
-                            word_details.append(part.strip())
-
-                        # คัดเลือกข้อมูลที่ต้องการ
-                        if len(word_details) == 6:  # ควรมี 6 ข้อมูลในแต่ละแถว
-                            word_data.append(word_details)
-
-                # ตรวจสอบข้อมูลใน word_data
-                st.write("Word data: ", word_data)
-
+                def process_vocab_data(vocab_analysis):
+                    # แยกคำศัพท์ตามบรรทัด
+                    words = vocab_analysis.split("\n")
+                    word_data = []
+                
+                    # แยกคำศัพท์ออกเป็นรายการ
+                    for word in words:
+                        if word.strip():  # ตรวจสอบว่าไม่ใช่บรรทัดว่าง
+                            parts = word.split(" ")  # หรือใช้ \t ขึ้นอยู่กับรูปแบบข้อมูลจาก API
+                            if len(parts) >= 6:  # ต้องมีข้อมูลครบ 6 คอลัมน์
+                                word_data.append(parts[:6])  # เก็บเฉพาะ 6 คอลัมน์ที่ต้องการ
+                
+                    return word_data
+                
+                # ใช้ฟังก์ชันเพื่อแยกข้อมูล
+                word_data = process_vocab_data(vocab_analysis)
+                
+                # ตรวจสอบข้อมูลที่ได้
+                st.write("Word data after processing:", word_data)
+                
                 # สร้าง DataFrame
                 if word_data:
                     df = pd.DataFrame(word_data, columns=["Word", "Pinyin", "Part of Speech", "Meaning", "Example Usage", "Synonyms"])
                     st.dataframe(df)
-
+                
                     # ดาวน์โหลดผลลัพธ์
                     csv = df.to_csv(index=False).encode('utf-8')
                     st.download_button(
@@ -95,9 +94,9 @@ def main():
                         mime="text/csv",
                     )
                 else:
-                    st.warning("No data available to display.")
-        else:
-            st.error("Please provide an API key and input text.")
+                    st.warning("No valid word data to display.")
+                        else:
+                            st.error("Please provide an API key and input text.")
 
 if __name__ == "__main__":
     main()
