@@ -67,30 +67,26 @@ def main():
                 st.subheader("Vocabulary Analysis with Pinyin")
                 st.text(vocab_analysis)
 
-                def process_vocab_data(extract_vocab_with_pinyin(chinese_text, target_language)):
-                    words = extract_vocab_with_pinyin(chinese_text, target_language).split("\n")  
+                def process_vocab_data(vocab_analysis):
+                    words = vocab_analysis.split("\n")  
                     word_data = []
-                    
+                
                     for word in words:
                         if word.strip():
                             parts = word.split(" : ")
-                            
                             if len(parts) >= 6:
                                 word_data.append([parts[1], parts[3], parts[5]])  
                                 
                     return word_data
                     
                 word_data = process_vocab_data(vocab_analysis)
-                
-                # ตรวจสอบข้อมูลที่ได้
+
                 st.write("Word data after processing:")
                 
-                # สร้าง DataFrame
                 if word_data:
                     df = pd.DataFrame(word_data, columns=["Word", "Pinyin", "Part of Speech", "Meaning", "Example Usage", "Synonyms"])
                     st.dataframe(df)
-                
-                    # ดาวน์โหลดผลลัพธ์
+                    
                     csv = df.to_csv(index=False).encode('utf-8')
                     st.download_button(
                         label="Download results as CSV",
@@ -98,8 +94,6 @@ def main():
                         file_name="chinese_analysis_with_pinyin.csv",
                         mime="text/csv",
                     )
-                else:
-                    st.warning("No valid word data to display.")
         else:
             st.error("Please provide an API key and input text.")
 
