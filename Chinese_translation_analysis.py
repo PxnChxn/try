@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import openai
+import re
 
 # Sidebar สำหรับกรอก API Key
 st.sidebar.title("API Key Settings")
